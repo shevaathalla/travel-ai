@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  city         String
+  age          Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  chats        Chat[]
+  plans        Plan[]
+
+  @@map("users")
+}
+
+model Chat {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  Message[]
+  title     String    @default("New chat")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("chats")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  role      String   // "user" | "assistant" | "system"
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@map("messages")
+}
+
+model Plan {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  days         Int
+  budget       Int      // in IDR
+  feeling      String
+  originCity   String
+  optionsJson  Json     // [{id,title,summary,estimatedCost,highlights[],suitabilityScore}, ...]
+  chosenOption Json?    // chosen option object
+  status       String   @default("suggested") // "suggested" | "chosen"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("plans")
+}
