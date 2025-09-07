@@ -11,9 +11,9 @@ fi
 
 echo "DATABASE_URL is configured"
 
-# Prisma client is already generated during build, so we just run migrations
-echo "Running database migrations..."
-npx prisma db push --accept-data-loss
+# Since we can't write to node_modules/prisma, we'll skip db push in production
+# The database should be set up separately on Railway
+echo "Skipping database migrations (handled separately on Railway)"
 
 echo "Starting server..."
 exec node dist/server.js
