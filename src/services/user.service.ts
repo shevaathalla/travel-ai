@@ -9,6 +9,7 @@ export interface UserProfile {
   email: string;
   name: string;
   city: string;
+  country: string;
   age: number;
   createdAt: Date;
   updatedAt: Date;
@@ -25,6 +26,7 @@ export const userService = {
         email: true,
         name: true,
         city: true,
+        country: true,
         age: true,
         createdAt: true,
         updatedAt: true,
@@ -42,13 +44,16 @@ export const userService = {
     logger.info('Updating user profile:', { userId, input });
 
     // Filter out undefined values to satisfy Prisma's exactOptionalPropertyTypes
-    const updateData: Partial<{ name: string; city: string; age: number }> = {};
+    const updateData: Partial<{ name: string; city: string; country: string; age: number }> = {};
     
     if (input.name !== undefined) {
       updateData.name = input.name;
     }
     if (input.city !== undefined) {
       updateData.city = input.city;
+    }
+    if (input.country !== undefined) {
+      updateData.country = input.country;
     }
     if (input.age !== undefined) {
       updateData.age = input.age;
@@ -62,6 +67,7 @@ export const userService = {
         email: true,
         name: true,
         city: true,
+        country: true,
         age: true,
         createdAt: true,
         updatedAt: true,

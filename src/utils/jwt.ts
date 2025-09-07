@@ -5,6 +5,7 @@ export interface JwtPayload {
   userId: string;
   email: string;
   city: string;
+  country: string;
   age: number;
 }
 
@@ -21,6 +22,7 @@ export const verifyToken = (token: string): JwtPayload => {
       userId: decoded.userId,
       email: decoded.email,
       city: decoded.city,
+      country: decoded.country,
       age: decoded.age,
     };
   } catch (error) {

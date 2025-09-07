@@ -149,6 +149,7 @@ export const chatService = {
         name: chat.user.name,
         age: chat.user.age,
         city: chat.user.city,
+        country: (chat.user as any).country || 'ID', // Fallback to ID if country not available
       },
       recentMessages,
       chosenPlan ? { title: (chosenPlan.chosenOption as any)?.title || 'Travel Plan' } : undefined

@@ -22,7 +22,7 @@ export const aiService = {
     // Get user profile
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { name: true, age: true },
+      select: { name: true, age: true, country: true },
     });
 
     if (!user) {
@@ -38,8 +38,10 @@ export const aiService = {
         name: user.name,
         age: userAge,
         originCity: input.originCity,
+        country: (user as any).country || 'ID', // Fallback to ID if country not available
       },
-      input.feeling
+      input.feeling,
+      input.budget // Pass the budget to the catchphrase generation
     );
 
     // Generate suggestions using AI
@@ -48,6 +50,7 @@ export const aiService = {
         name: user.name,
         age: userAge,
         originCity: input.originCity,
+        country: (user as any).country || 'ID', // Fallback to ID if country not available
       },
       {
         days: input.days,

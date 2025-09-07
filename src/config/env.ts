@@ -11,7 +11,8 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.string().default('1d'),
   OPENAI_API_KEY: z.string().optional(),
   GEMINI_API_KEY: z.string().optional(),
-  AI_PROVIDER: z.enum(['openai', 'gemini', 'mock']).default('openai'),
+  OPENROUTER_API_KEY: z.string().optional(),
+  AI_PROVIDER: z.enum(['openai', 'gemini', 'openrouter', 'mock']).default('openai'),
   FRONTEND_URL: z.string().url().default('http://localhost:3000'),
   RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default('900000'),
   RATE_LIMIT_MAX_REQUESTS: z.string().transform(Number).default('100'),
@@ -37,6 +38,11 @@ if (env.AI_PROVIDER === 'openai' && !env.OPENAI_API_KEY) {
 
 if (env.AI_PROVIDER === 'gemini' && !env.GEMINI_API_KEY) {
   console.error('❌ GEMINI_API_KEY is required when AI_PROVIDER is set to "gemini"');
+  process.exit(1);
+}
+
+if (env.AI_PROVIDER === 'openrouter' && !env.OPENROUTER_API_KEY) {
+  console.error('❌ OPENROUTER_API_KEY is required when AI_PROVIDER is set to "openrouter"');
   process.exit(1);
 }
 

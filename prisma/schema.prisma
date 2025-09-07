@@ -16,6 +16,7 @@ model User {
   passwordHash String
   name         String
   city         String
+  country      String   @default("ID") // Country code like "ID", "EN", "US", etc.
   age          Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

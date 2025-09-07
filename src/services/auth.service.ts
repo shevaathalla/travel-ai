@@ -13,6 +13,7 @@ export interface AuthResponse {
     email: string;
     name: string;
     city: string;
+    country: string;
     age: number;
   };
 }
@@ -40,6 +41,7 @@ export const authService = {
         passwordHash,
         name: input.name,
         city: input.city,
+        country: input.country,
         age: input.age,
       },
     });
@@ -49,6 +51,7 @@ export const authService = {
       userId: user.id,
       email: user.email,
       city: user.city,
+      country: user.country,
       age: user.age,
     });
 
@@ -61,6 +64,7 @@ export const authService = {
         email: user.email,
         name: user.name,
         city: user.city,
+        country: user.country,
         age: user.age,
       },
     };
@@ -89,6 +93,7 @@ export const authService = {
       userId: user.id,
       email: user.email,
       city: user.city,
+      country: user.country,
       age: user.age,
     });
 
@@ -101,6 +106,7 @@ export const authService = {
         email: user.email,
         name: user.name,
         city: user.city,
+        country: user.country,
         age: user.age,
       },
     };
