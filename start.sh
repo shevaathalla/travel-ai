@@ -11,11 +11,7 @@ fi
 
 echo "DATABASE_URL is configured"
 
-# Generate Prisma client (in case it's needed)
-echo "Generating Prisma client..."
-npx prisma generate
-
-# Run database migrations
+# Prisma client is already generated during build, so we just run migrations
 echo "Running database migrations..."
 npx prisma db push --accept-data-loss
 
